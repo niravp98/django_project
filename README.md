@@ -2,7 +2,7 @@
 # Python-Django
 -Msg_app
 
-1)You can start Django on your server
+1)You can start Django on your server.(Create a virtual environment start your Django)
 
 2) Install the requirements.txt
 
