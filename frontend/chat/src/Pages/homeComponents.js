@@ -1,11 +1,12 @@
 import React, { useContext, useState, useEffect } from "react";
 import close from "../assets/close.svg";
 import edit from "../assets/edit.png";
+import deleteIcon from "../assets/delete.png";
 import Loader from "../components/loader";
 import { axiosHandler, errorHandler, getToken } from "../helper";
 import { userDetailAction } from "../stateManagement/actions";
 import { store } from "../stateManagement/store";
-import { PROFILE_URL, FILE_UPLOAD_URL } from "../urls";
+import { PROFILE_URL, FILE_UPLOAD_URL, MESSAGE_URL } from "../urls";
 
 export const UserMain = (props) => {
   let _count = 0;
@@ -53,12 +54,26 @@ export const UserAvatar = (props) => {
 };
 
 export const ChatBubble = (props) => {
+  const [visibleDelete, setVisibleDelete] = useState(false);
+  const deleteMessage = async (m_id) => {
+    let data = {
+     id: m_id,
+     isDelete: true
+    };
+    const token = await getToken()
+    const result = await axiosHandler({
+      method:"post",
+      url: MESSAGE_URL,
+      token, data
+    }).catch(e => console.log(errorHandler(e)))
+  }
   return (
-    <div className={`chatbubbleCon ${props.bubbleType}`}>
+    <div onMouseLeave={() => setVisibleDelete(false)} onMouseEnter={() => setVisibleDelete(true)} className={`chatbubbleCon ${props.bubbleType}`}>
       <div className="chatbubble">
         <p>{props.message}</p>
         <div className="time">{props.time}</div>
       </div>
+      {visibleDelete ? <img className="deleteIcon" onClick={() => deleteMessage(props.id)} src={deleteIcon} /> : ''}
     </div>
   );
 };
