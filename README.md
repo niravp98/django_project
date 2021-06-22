@@ -3,9 +3,8 @@
 -Msg_app
 
 1)You can start Django on your server
-
 2) Install the requirements.txt
-#  pip install -r requirements.txt
+pip install -r requirements.txt
 
 3) Go to the .env file add your S3 keys over there 
 
