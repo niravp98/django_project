@@ -1,0 +1,19 @@
+version: "3"
+
+services:
+  api:
+    build: .
+    command: npm start
+    container_name: msg_app
+    restart: unless-stopped
+    volumes:
+      - .:/msg_app
+      - /msg_app/node_modules
+    ports:
+      - "443:9000"
+    networks:
+      - postgres
+
+networks:
+  postgres:
+    driver: bridge
